@@ -102,7 +102,7 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
 /* Input style */
 .input-date {
     @apply block w-64 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-400 transition duration-300 mb-4;
-    margin: 0 auto 16px;
+    margin: 0 auto 12px;
 }
 
 /* Section title style */
@@ -111,7 +111,7 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
 }
 
 .title-line {
-    @apply py-2 font-bold;
+    @apply py-1 font-bold;
 }
 
 /* Date section style */
@@ -121,14 +121,14 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
 
 /* Date group style */
 .date-group {
-    @apply w-full md:max-w-full px-2 mb-4;
+    @apply w-full md:max-w-full px-2 mb-1;
     min-width: 240px;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 /* Date group title style */
 .date-group-title {
-    @apply text-xl font-semibold mb-2;
+    @apply text-xl font-semibold mb-1;
 }
 
 /* Date info style */
