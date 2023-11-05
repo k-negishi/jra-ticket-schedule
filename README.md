@@ -1,4 +1,4 @@
-# JRA指定席ネット予約スケジュール
+# JRA指定席ネット予約スケジュール(jra-ticket-schedule)
 
 JRA公式で掲載されている[指定席予約スケジュール](https://www.jra.go.jp/card/about/schedule.html)があまりにも分かりづらいので、日付を選択することで具体的な日付を確認できるようにするVue3製のSPA
 
@@ -10,6 +10,9 @@ JRA公式で掲載されている[指定席予約スケジュール](https://www
 - ESLint
 - Prettier
 - Day.js
+
+## 公開URL
+https://jra-ticket-schedule.s3.ap-northeast-1.amazonaws.com/index.html
 
 ## Project Setup
 

@@ -1,5 +1,5 @@
 {
-  "name": "jra-ticket-calendar",
+  "name": "jra-ticket-schedule",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -12,9 +12,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@popperjs/core": "^2.11.8",
     "dayjs": "^1.11.10",
-    "v-calendar": "^3.1.2",
     "vue": "^3.3.4"
   },
   "devDependencies": {
