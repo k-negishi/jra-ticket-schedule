@@ -54,13 +54,13 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
         <div class="date-group">
             <p class="date-group-title">JRAカード先行販売</p>
             <div class="date-info">
-                <p class="date-info-title">抽選申込開始日</p>
+                <p class="date-info-title">抽選申込期間</p>
                 <p class="date-info-time">
                     {{ preSaleEntryStart + ' 18:00 〜 ' + preSaleEntryEnd + ' 13:00' }}
                 </p>
             </div>
             <div class="date-info">
-                <p class="date-info-title">当選結果・購入開始日</p>
+                <p class="date-info-title">当選結果・購入期間</p>
                 <p class="date-info-time">
                     {{ preSaleResultStart + ' 18:00 〜 ' + preSaleResultEnd + ' 13:00' }}
                 </p>
@@ -70,13 +70,13 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
         <div class="date-group">
             <p class="date-group-title">一般抽選販売</p>
             <div class="date-info">
-                <p class="date-info-title">抽選申込開始日</p>
+                <p class="date-info-title">抽選申込期間</p>
                 <p class="date-info-time">
                     {{ generalSaleEntryStart + ' 18:00 〜 ' + generalSaleEntryEnd + ' 13:00' }}
                 </p>
             </div>
             <div class="date-info">
-                <p class="date-info-title">当選結果・購入開始日</p>
+                <p class="date-info-title">当選結果・購入期間</p>
                 <p class="date-info-time">
                     {{ generalSaleResultStart + ' 18:00 〜 ' + generalSaleResultEnd + ' 13:00' }}
                 </p>
@@ -86,7 +86,7 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
         <div class="date-group">
             <p class="date-group-title">残席先着販売</p>
             <div class="date-info">
-                <p class="date-info-title">販売開始日</p>
+                <p class="date-info-title">販売期間</p>
                 <p class="date-info-time">{{ remainingSeatSaleStart + ' 18:00 〜 当日 15:00' }}</p>
             </div>
         </div>
