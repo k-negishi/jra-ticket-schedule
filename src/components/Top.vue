@@ -93,7 +93,7 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
     </div>
     <div v-else>
         <p class="error-message">
-            土曜日または日曜日を選択してください。<br />金杯・ホープフルS等には対応していません。
+            土曜・日曜を選択してください<br />金杯・ホープフルS等は未対応です
         </p>
     </div>
 </template>
