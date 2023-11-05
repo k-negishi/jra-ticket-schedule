@@ -5,11 +5,9 @@ JRA公式で掲載されている[指定席予約スケジュール](https://www
 ## 使用技術
 - Vue3
 - TypeScript
-- Vite
 - Tailwind CSS
-- ESLint
-- Prettier
 - Day.js
+- etc...
 
 ## 公開URL
 https://jra-ticket-schedule.s3.ap-northeast-1.amazonaws.com/index.html
