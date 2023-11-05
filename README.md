@@ -37,3 +37,4 @@ npm run lint
 ```
 
 ## CI/CD
+GitHub ActionsでVueをビルドし、S3にpushすることでデプロイする
