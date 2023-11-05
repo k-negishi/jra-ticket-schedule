@@ -1,6 +1,6 @@
 # JRA指定席ネット予約スケジュール(jra-ticket-schedule)
 
-JRA(日本中央競馬会)公式で掲載されている[指定席予約スケジュール](https://www.jra.go.jp/card/about/schedule.html)があまりにも分かりづらいので、日付を選択することで具体的な日付を確認できるようにするVue3製のSPA
+JRA(日本中央競馬会)公式で掲載されている[指定席予約スケジュール](https://www.jra.go.jp/card/about/schedule.html)があまりにも分かりづらいので、競馬開催日を指定することで具体的な予約開始日を確認できるようにするVue3製のSPA
 
 ## 使用技術
 - Vue3
