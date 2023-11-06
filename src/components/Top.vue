@@ -125,7 +125,7 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
 
 /* Date group style */
 .date-group {
-    @apply w-full bg-green-50 border border-green-200 md:max-w-3xl px-2 mb-1;
+    @apply w-full bg-green-50 border border-green-200 px-2 mb-2;
     min-width: 240px;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -156,5 +156,23 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
 /* Error message style */
 .error-message {
     @apply text-red-600 text-base;
+}
+
+@media (max-width: 1024px) {
+    /* Adjust styles for 1024px screens and smaller */
+    .date-group {
+        @apply w-full px-2 mb-4;
+    }
+
+    .date-section {
+        @apply flex-col;
+    }
+}
+
+@media (max-width: 320px) {
+    /* Adjust styles for iPhone SE */
+    .date-group {
+        @apply w-full px-2 mb-4;
+    }
 }
 </style>
