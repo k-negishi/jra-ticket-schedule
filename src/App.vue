@@ -3,29 +3,62 @@ import Top from './components/Top.vue'
 </script>
 
 <template>
-    <div class="container">
-        <header class="flex justify-center">
-            <img alt="logo" class="logo" src="./assets/keiba_jockey4_blue.png" width="125" />
+    <div class="app">
+        <header class="bg-gray-400 flex items-center p-4">
+            <div class="logo-container">
+                <img alt="logo" class="logo" src="./assets/keiba.png" />
+            </div>
+            <div class="text-white ml-4">
+                <p class="text-lg font-semibold">JRA指定席</p>
+                <p class="text-lg font-semibold">ネット予約スケジュール</p>
+            </div>
         </header>
-        <main>
-            <Top />
-        </main>
+        <div class="container">
+            <main>
+                <Top />
+            </main>
+        </div>
     </div>
 </template>
 
 <style scoped>
+/* App style */
+.app {
+    margin: 0 auto; /* 中央に配置するためのマージン設定 */
+    width: 100%; /* 幅100%を設定 */
+}
+
+/* ヘッダーのスタイル */
 header {
-    line-height: 1.5;
+    background-color: rgba(169, 169, 169, 0.7);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    max-width: 100%; /* 幅100%を設定 */
+}
+
+.logo-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    mix-blend-mode: multiply;
 }
 
 .logo {
     display: block;
-    margin: 0 auto 2rem;
+    margin: 0;
+    height: 150%; /* 高さ100%に設定 */
+    max-width: 100%; /* 幅100%を設定 */
 }
 
 /* Container style */
 .container {
-    @apply p-6 text-center mx-auto bg-green-100;
-    /* 背景色をVue.jsの緑色に設定 */
+    @apply p-6 text-center bg-gray-50;
+    max-width: 100%;
+}
+
+/* 2行のテキストをスタイル化 */
+header p {
+    margin: 0;
 }
 </style>

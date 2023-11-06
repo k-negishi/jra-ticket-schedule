@@ -14,6 +14,8 @@ https://jra-ticket-schedule.s3.ap-northeast-1.amazonaws.com/index.html
 
 ## Project Setup
 
+Node.js 21.1.X がインストールされていることを前提としています。
+
 ```sh
 npm install
 ```
