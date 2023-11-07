@@ -49,7 +49,6 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
         <input class="input-date" style="text-align: center" type="date" v-model="inputDate" />
     </div>
     <div v-if="isEnable" class="date-section">
-        <p class="schedule-text">の予約スケジュールは...</p>
         <!-- JRAカード先行販売 -->
         <div class="date-group">
             <p class="date-group-title">JRAカード先行</p>
@@ -101,8 +100,8 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
 <style scoped>
 /* Input style */
 .input-date {
-    @apply block w-64 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-400 transition duration-300 mb-4;
-    margin: 0 auto 12px;
+    @apply block w-64 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-400 transition duration-300 mb-8;
+    margin: 0 auto 16px;
 }
 
 /* Section title style */
@@ -125,7 +124,7 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
 
 /* Date group style */
 .date-group {
-    @apply w-full bg-green-50 border border-green-200 px-2 mb-2;
+    @apply w-full bg-green-50 border border-green-200 px-2 mb-6;
     min-width: 240px;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -133,12 +132,12 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
 
 /* Date group title style */
 .date-group-title {
-    @apply text-xl font-semibold mb-1;
+    @apply text-base font-semibold mb-1;
 }
 
 /* Date info style */
 .date-info {
-    @apply p-4 bg-white border border-green-200 rounded shadow-md mb-2;
+    @apply p-3 bg-white border border-green-200 rounded shadow-md mb-1.5;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
@@ -160,8 +159,12 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
 
 @media (max-width: 1024px) {
     /* Adjust styles for 1024px screens and smaller */
+    .input-date {
+        @apply mb-4;
+    }
+
     .date-group {
-        @apply w-full px-2 mb-4;
+        @apply w-full px-2 mb-2.5;
     }
 
     .date-section {
