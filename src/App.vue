@@ -4,7 +4,7 @@ import Top from './components/Top.vue'
 
 <template>
     <div class="app">
-        <header class="bg-gray-400 flex items-center p-4">
+        <header class="bg-gray-400 flex p-4">
             <div class="logo-container">
                 <img alt="logo" class="logo" src="./assets/keiba.png" />
             </div>
@@ -31,10 +31,12 @@ import Top from './components/Top.vue'
 /* ヘッダーのスタイル */
 header {
     background-color: rgba(169, 169, 169, 0.7);
-    height: 60px;
-    display: flex;
+    height: 70px;
     align-items: center;
-    max-width: 100%; /* 幅100%を設定 */
+
+    @media (max-width: 1024px) {
+        height: 60px;
+    }
 }
 
 .logo-container {
@@ -47,7 +49,7 @@ header {
 .logo {
     display: block;
     margin: 0;
-    height: 150%; /* 高さ100%に設定 */
+    height: 150%; /* 高さ150%に設定 */
     max-width: 100%; /* 幅100%を設定 */
 }
 

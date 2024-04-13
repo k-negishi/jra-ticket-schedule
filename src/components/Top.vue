@@ -86,7 +86,9 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
             <p class="date-group-title">残席先着</p>
             <div class="date-info">
                 <p class="date-info-title">販売期間</p>
-                <p class="date-info-time">{{ remainingSeatSaleStart + ' 18:00 〜 当日 15:00' }}</p>
+                <p class="date-info-time">
+                    {{ remainingSeatSaleStart + ' 18:00 〜 当日 15:00' }}
+                </p>
             </div>
         </div>
     </div>
@@ -119,15 +121,20 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
 
 /* Date section style */
 .date-section {
-    @apply flex flex-wrap justify-center -mx-2;
+    @apply flex-wrap justify-center -mx-2;
 }
 
 /* Date group style */
 .date-group {
     @apply w-full bg-green-50 border border-green-200 px-2 mb-6;
     min-width: 240px;
+    max-width: 600px;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 24px;
+    flex-flow: column;
 }
 
 /* Date group title style */
@@ -140,6 +147,9 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
     @apply p-3 bg-white border border-green-200 rounded shadow-md mb-1.5;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-bottom: 14px;
 }
 
 /* Date info title style */
@@ -170,12 +180,11 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
     .date-section {
         @apply flex-col;
     }
-}
 
-@media (max-width: 320px) {
-    /* Adjust styles for iPhone SE */
-    .date-group {
-        @apply w-full px-2 mb-4;
+    .date-info {
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 4px;
     }
 }
 </style>
