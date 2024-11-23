@@ -87,7 +87,7 @@ onMounted(() => {
     <div>
         <input id="calendar" class="input-date" placeholder="日付を選択してください" />
     </div>
-    <div v-if="isEnable" class="card-section">
+    <div v-if="isEnable" class="data-section">
         <!-- JRAカード先行販売 -->
         <div class="date-group">
             <p class="date-group-title">JRAカード先行</p>
@@ -155,7 +155,7 @@ onMounted(() => {
 }
 
 /* Date section style */
-.card-section {
+.data-section {
     @apply flex-wrap justify-center;
     display: flex;
     gap: 8px;
@@ -163,8 +163,8 @@ onMounted(() => {
 
 /* Date group style */
 .date-group {
-    @apply w-full bg-blue-50 border border-blue-200 px-4 py-3 mx-2;
-    max-width: 320px;
+    @apply w-full bg-blue-50 border border-blue-200 px-3.5 py-3 mx-1.5;
+    max-width: 300px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -196,7 +196,7 @@ onMounted(() => {
 }
 
 /* レスポンシブスタイル */
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
     .section-title {
         @apply text-lg mb-1;
     }
@@ -205,7 +205,7 @@ onMounted(() => {
         @apply mb-3 py-1 text-sm;
     }
 
-    .card-section {
+    .data-section {
         @apply flex-col items-center gap-2.5;
     }
 
