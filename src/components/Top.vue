@@ -13,7 +13,7 @@ dayjs.locale(ja)
 Japanese.firstDayOfWeek = 1 // 月曜始まり
 
 // 日付を管理する変数
-const inputDate = ref(null)
+const inputDate = ref<string | null>(null)
 
 // Flatpickr カレンダー設定
 const flatpickrOptions = {
@@ -21,8 +21,17 @@ const flatpickrOptions = {
     dateFormat: 'Y-m-d',
     defaultDate: null,
     weekNumbers: false,
-    onChange: (selectedDates) => {
+    disableMobile: true,
+    onChange: (selectedDates: Date[]) => {
         inputDate.value = dayjs(selectedDates[0]).format('YYYY-MM-DD')
+    }
+}
+
+// カレンダー初期化関数
+const initializeFlatpickr = () => {
+    const calendarElement = document.querySelector('#calendar')
+    if (calendarElement) {
+        flatpickr(calendarElement, flatpickrOptions)
     }
 }
 
@@ -63,9 +72,9 @@ const generalSaleResultEnd = computed(() => calculationDate(7))
 // 残席先着販売
 const remainingSeatSaleStart = computed(() => calculationDate(6))
 
-// DOMにカレンダーを適用
+// FlatpickrをVueライフサイクルに適用
 onMounted(() => {
-    flatpickr('#calendar', flatpickrOptions)
+    initializeFlatpickr()
 })
 </script>
 
@@ -129,61 +138,54 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Input style */
 .input-date {
-    @apply block w-64 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-400 transition duration-300 mb-8;
+    @apply block w-64 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-400 transition duration-300 mb-4;
     margin: 0 auto 16px;
+    text-align: center;
 }
 
 /* Section title style */
 .section-title {
-    @apply text-xl font-bold mb-1 text-center;
+    @apply text-xl font-bold mb-4 text-center text-blue-600;
 }
 
 .title-line {
-    @apply py-1 font-bold;
+    @apply py-1 font-bold text-blue-500;
 }
 
 .schedule-text {
-    @apply text-base font-normal mb-4 text-center;
+    @apply text-base font-normal mb-6 text-center text-gray-600;
 }
 
 /* Date section style */
 .date-section {
-    @apply flex-wrap justify-center -mx-2;
+    @apply flex-wrap justify-center;
+    display: flex;
+    gap: 8px;
 }
 
 /* Date group style */
 .date-group {
-    @apply w-full bg-green-50 border border-green-200 px-2 mb-6;
-    min-width: 240px;
-    max-width: 600px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 24px;
-    flex-flow: column;
+    @apply w-full bg-blue-50 border border-blue-200 px-4 py-3 mx-2;
+    max-width: 320px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Date group title style */
 .date-group-title {
-    @apply text-base font-semibold mb-1;
+    @apply text-lg font-semibold mb-1 text-blue-700;
 }
 
 /* Date info style */
 .date-info {
-    @apply p-3 bg-white border border-green-200 rounded shadow-md mb-1.5;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    margin-right: 4px;
-    margin-left: 4px;
-    margin-bottom: 14px;
+    @apply p-2 bg-white border border-blue-200 rounded shadow-md mb-1;
+    border-radius: 8px;
 }
 
 /* Date info title style */
 .date-info-title {
-    @apply text-base font-semibold mb-1;
+    @apply text-base font-semibold mb-1 text-gray-800;
 }
 
 /* Date info time style */
@@ -193,27 +195,33 @@ onMounted(() => {
 
 /* Error message style */
 .error-message {
-    @apply text-red-600 text-base;
+    @apply text-red-600 text-sm font-semibold;
 }
 
-@media (max-width: 1024px) {
-    /* Adjust styles for 1024px screens and smaller */
+/* レスポンシブスタイル */
+@media (max-width: 1100px) {
+    .section-title {
+        @apply text-lg mb-3;
+    }
+
     .input-date {
         @apply mb-4;
     }
 
-    .date-group {
-        @apply w-full px-2 mb-2.5;
+    .date-section {
+        @apply flex-col items-center gap-6;
     }
 
-    .date-section {
-        @apply flex-col;
+    .date-group {
+        @apply w-full px-3 py-2;
     }
 
     .date-info {
-        margin-right: 0;
-        margin-left: 0;
-        margin-bottom: 4px;
+        @apply p-2 mb-1;
+    }
+
+    .date-info-time {
+        font-size: 0.85rem;
     }
 }
 </style>
