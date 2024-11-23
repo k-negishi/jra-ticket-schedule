@@ -219,7 +219,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 
 /* Date info style */
 .date-info {
-    @apply p-2 bg-white border border-blue-200 rounded shadow-md mb-1;
+    @apply p-2 bg-white border border-blue-200 rounded shadow-md mb-3;
     border-radius: 8px;
 }
 
