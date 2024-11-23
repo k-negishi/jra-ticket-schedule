@@ -29,8 +29,9 @@ const flatpickrOptions = {
 
 // カレンダー初期化関数
 const initializeFlatpickr = () => {
-    const calendarElement = document.querySelector('#calendar')
-    if (calendarElement) {
+    const calendarElement = document.querySelector('#calendar') as HTMLInputElement | null
+    if (calendarElement instanceof HTMLInputElement) {
+        //@ts-ignore flatpickrの型定義にあてはまらないため、型エラーを無視
         flatpickr(calendarElement, flatpickrOptions)
     }
 }
