@@ -206,7 +206,7 @@ onMounted(() => {
     }
 
     .date-section {
-        @apply flex-col items-center gap-3;
+        @apply flex-col items-center gap-2.5;
     }
 
     .date-group {
