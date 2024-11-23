@@ -15,6 +15,17 @@ import Top from './components/Top.vue'
                 <Top />
             </main>
         </div>
+        <div>
+            <a
+                href="https://github.com/k-negishi/jra-ticket-schedule"
+                class="github-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <img src="@/assets/github-icon.svg" alt="GitHub" class="github-icon" />
+                GitHubで見る
+            </a>
+        </div>
     </div>
 </template>
 
@@ -36,6 +47,24 @@ header p {
 .container {
     @apply px-6 py-8 text-center bg-gray-50 max-w-7xl mx-auto;
     margin-top: 0;
+}
+
+.github-link {
+    @apply flex items-center gap-2 text-gray-800 font-semibold hover:text-gray-400 m-10;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.github-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform 0.2s ease;
+}
+
+.github-link:hover .github-icon {
+    transform: scale(1.2);
 }
 
 /* レスポンシブスタイル */
