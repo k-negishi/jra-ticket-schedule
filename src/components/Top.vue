@@ -210,11 +210,11 @@ onMounted(() => {
     }
 
     .date-group {
-        @apply w-full px-3 py-2;
+        @apply w-full px-3 py-1.5;
     }
 
     .date-info {
-        @apply p-2 mb-1;
+        @apply px-2 py-1.5 mb-1;
     }
 
     .date-info-time {
