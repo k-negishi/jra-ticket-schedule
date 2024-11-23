@@ -163,6 +163,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
                         class="calendar-icon"
                         src="@/assets/calender.svg"
                         alt="カレンダーに追加"
+                        title="カレンダーに追加"
                         @click="addToCalendar(sale.sectionTitle, period)"
                     />
                 </div>
@@ -247,7 +248,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 }
 
 .calendar-icon:hover {
-    transform: scale(1.1);
+    transform: scale(1.5);
 }
 
 /* Date info time style */
