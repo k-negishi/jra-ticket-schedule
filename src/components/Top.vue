@@ -202,15 +202,15 @@ onMounted(() => {
 /* レスポンシブスタイル */
 @media (max-width: 1100px) {
     .section-title {
-        @apply text-lg mb-3;
+        @apply text-lg mb-2;
     }
 
     .input-date {
-        @apply mb-4;
+        @apply mb-2.5;
     }
 
     .date-section {
-        @apply flex-col items-center gap-6;
+        @apply flex-col items-center gap-3;
     }
 
     .date-group {
