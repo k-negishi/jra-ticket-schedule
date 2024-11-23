@@ -45,7 +45,7 @@ header p {
     }
 
     .container {
-        @apply px-4 py-6;
+        @apply px-4 py-1.5;
     }
 
     header p {

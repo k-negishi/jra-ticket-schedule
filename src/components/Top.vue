@@ -154,10 +154,6 @@ onMounted(() => {
     @apply py-1 font-bold text-blue-500;
 }
 
-.schedule-text {
-    @apply text-base font-normal mb-6 text-center text-gray-600;
-}
-
 /* Date section style */
 .date-section {
     @apply flex-wrap justify-center;
@@ -206,7 +202,7 @@ onMounted(() => {
     }
 
     .input-date {
-        @apply mb-2.5;
+        @apply mb-3;
     }
 
     .date-section {
