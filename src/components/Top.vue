@@ -202,7 +202,7 @@ onMounted(() => {
     }
 
     .input-date {
-        @apply mb-3 w-60 py-1;
+        @apply mb-3 py-1 text-sm;
     }
 
     .card-section {
@@ -213,12 +213,20 @@ onMounted(() => {
         @apply w-full px-3 py-1.5;
     }
 
+    .date-group-title {
+        @apply text-base;
+    }
+
     .date-info {
         @apply px-2 py-1.5 mb-1;
     }
 
+    .date-info-title {
+        @apply text-sm;
+    }
+
     .date-info-time {
-        font-size: 0.85rem;
+        @apply text-xs;
     }
 }
 </style>
