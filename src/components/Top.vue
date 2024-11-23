@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref, computed, onMounted } from 'vue'
-import dayjs from 'dayjs'
+import { ref, computed, onMounted, type ComputedRef } from 'vue'
+import dayjs, { Dayjs } from 'dayjs'
 import ja from 'dayjs/locale/ja'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
@@ -36,6 +36,11 @@ const initializeFlatpickr = () => {
     }
 }
 
+// FlatpickrをVueライフサイクルに適用
+onMounted(() => {
+    initializeFlatpickr()
+})
+
 // 有効な日付か判定 (土曜または日曜)
 const isEnable = computed(() => {
     if (inputDate.value == null) {
@@ -46,29 +51,86 @@ const isEnable = computed(() => {
 })
 
 // 日付計算用関数
-const calculationDate = (standardSubtractStart: number) => {
-    if (!inputDate.value) return null
+const calculationDate = (standardSubtractStart: number): Dayjs | undefined => {
+    if (inputDate.value == null) return undefined
+
     const originDate = dayjs(inputDate.value)
     if (originDate.day() === 0) {
         // 日曜日
-        return originDate.subtract(standardSubtractStart, 'day').format('M/D(ddd)')
+        return originDate.subtract(standardSubtractStart, 'day')
     } else if (originDate.day() === 6) {
         // 土曜日
-        return originDate.subtract(standardSubtractStart - 1, 'day').format('M/D(ddd)')
+        return originDate.subtract(standardSubtractStart - 1, 'day')
     }
 }
 
-// JRAカード先行抽選販売
-const preSaleEntryStart = computed(() => calculationDate(16))
-const preSaleEntryEnd = computed(() => calculationDate(14))
-const preSaleResultStart = computed(() => calculationDate(12))
-const preSaleResultEnd = computed(() => calculationDate(10))
+interface Period {
+    startDate: Dayjs | undefined
+    startTime: string
+    endDate: Dayjs | undefined
+    endTime: string
+    title: string
+}
 
-// 一般抽選販売
-const generalSaleEntryStart = computed(() => calculationDate(12))
-const generalSaleEntryEnd = computed(() => calculationDate(10))
-const generalSaleResultStart = computed(() => calculationDate(9))
-const generalSaleResultEnd = computed(() => calculationDate(7))
+interface SalePeriod {
+    title: string
+    periods: {
+        [key: string]: Period
+    }
+}
+
+const salePeriods: ComputedRef<Record<string, SalePeriod>> = computed(() => ({
+    preSale: {
+        title: 'JRAカード先行',
+        periods: {
+            entry: {
+                startDate: calculationDate(16),
+                startTime: '18:00',
+                endDate: calculationDate(14),
+                endTime: '13:00',
+                title: '申込期間'
+            },
+            result: {
+                startDate: calculationDate(12),
+                startTime: '18:00',
+                endDate: calculationDate(10),
+                endTime: '13:00',
+                title: '当選確認・購入期間'
+            }
+        }
+    },
+    generalSale: {
+        title: '一般抽選',
+        periods: {
+            entry: {
+                startDate: calculationDate(12),
+                startTime: '18:00',
+                endDate: calculationDate(10),
+                endTime: '13:00',
+                title: '申込期間'
+            },
+            result: {
+                startDate: calculationDate(9),
+                startTime: '18:00',
+                endDate: calculationDate(7),
+                endTime: '13:00',
+                title: '当選確認・購入期間'
+            }
+        }
+    },
+    remainingSeat: {
+        title: '残席先着',
+        periods: {
+            sale: {
+                startDate: calculationDate(6),
+                startTime: '18:00',
+                endDate: dayjs(inputDate.value),
+                endTime: '15:00',
+                title: '販売期間'
+            }
+        }
+    }
+}))
 
 // 残席先着販売
 const remainingSeatSaleStart = computed(() => calculationDate(6))
@@ -88,45 +150,14 @@ onMounted(() => {
         <input id="calendar" class="input-date" placeholder="日付を選択してください" />
     </div>
     <div v-if="isEnable" class="data-section">
-        <!-- JRAカード先行販売 -->
-        <div class="date-group">
-            <p class="date-group-title">JRAカード先行</p>
-            <div class="date-info">
-                <p class="date-info-title">申込期間</p>
+        <div v-for="(sale, key) in salePeriods" :key="key" class="date-group">
+            <p class="date-group-title">{{ sale.title }}</p>
+            <div v-for="(period, key) in sale.periods" :key="key" class="date-info">
+                <p class="date-info-title">{{ period.title }}</p>
                 <p class="date-info-time">
-                    {{ preSaleEntryStart }} 18:00 〜 {{ preSaleEntryEnd }} 13:00
-                </p>
-            </div>
-            <div class="date-info">
-                <p class="date-info-title">当選確認・購入期間</p>
-                <p class="date-info-time">
-                    {{ preSaleResultStart }} 18:00 〜 {{ preSaleResultEnd }} 13:00
-                </p>
-            </div>
-        </div>
-        <!-- 一般抽選販売 -->
-        <div class="date-group">
-            <p class="date-group-title">一般抽選</p>
-            <div class="date-info">
-                <p class="date-info-title">申込期間</p>
-                <p class="date-info-time">
-                    {{ generalSaleEntryStart }} 18:00 〜 {{ generalSaleEntryEnd }} 13:00
-                </p>
-            </div>
-            <div class="date-info">
-                <p class="date-info-title">当選確認・購入期間</p>
-                <p class="date-info-time">
-                    {{ generalSaleResultStart }} 18:00 〜 {{ generalSaleResultEnd }} 13:00
-                </p>
-            </div>
-        </div>
-        <!-- 残席先着販売 -->
-        <div class="date-group">
-            <p class="date-group-title">残席先着</p>
-            <div class="date-info">
-                <p class="date-info-title">販売期間</p>
-                <p class="date-info-time">
-                    {{ remainingSeatSaleStart + ' 18:00 〜 当日 15:00' }}
+                    {{ period.startDate?.format('M/D(ddd)') }} {{ period.startTime }}
+                    〜
+                    {{ period.endDate?.format('M/D(ddd)') }} {{ period.endTime }}
                 </p>
             </div>
         </div>
@@ -210,7 +241,7 @@ onMounted(() => {
     }
 
     .date-group {
-        @apply w-full px-3 py-1.5;
+        @apply w-full px-3 py-2;
     }
 
     .date-group-title {
