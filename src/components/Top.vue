@@ -87,7 +87,7 @@ onMounted(() => {
     <div>
         <input id="calendar" class="input-date" placeholder="日付を選択してください" />
     </div>
-    <div v-if="isEnable" class="date-section">
+    <div v-if="isEnable" class="card-section">
         <!-- JRAカード先行販売 -->
         <div class="date-group">
             <p class="date-group-title">JRAカード先行</p>
@@ -155,7 +155,7 @@ onMounted(() => {
 }
 
 /* Date section style */
-.date-section {
+.card-section {
     @apply flex-wrap justify-center;
     display: flex;
     gap: 8px;
@@ -205,7 +205,7 @@ onMounted(() => {
         @apply mb-3;
     }
 
-    .date-section {
+    .card-section {
         @apply flex-col items-center gap-2.5;
     }
 
