@@ -202,7 +202,7 @@ onMounted(() => {
     }
 
     .input-date {
-        @apply mb-3;
+        @apply mb-3 w-60 py-1;
     }
 
     .card-section {
