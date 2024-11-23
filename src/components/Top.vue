@@ -1,12 +1,32 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
+import flatpickr from 'flatpickr'
+import 'flatpickr/dist/flatpickr.min.css'
+import { Japanese } from 'flatpickr/dist/l10n/ja.js'
 
+// day.js ロケール設定
 dayjs.locale(ja)
 
+// Japaneseロケールに週の開始日を設定
+Japanese.firstDayOfWeek = 1 // 月曜始まり
+
+// 日付を管理する変数
 const inputDate = ref(null)
 
+// Flatpickr カレンダー設定
+const flatpickrOptions = {
+    locale: Japanese,
+    dateFormat: 'Y-m-d',
+    defaultDate: null,
+    weekNumbers: false,
+    onChange: (selectedDates) => {
+        inputDate.value = dayjs(selectedDates[0]).format('YYYY-MM-DD')
+    }
+}
+
+// 有効な日付か判定 (土曜または日曜)
 const isEnable = computed(() => {
     if (inputDate.value == null) {
         return false
@@ -15,11 +35,15 @@ const isEnable = computed(() => {
     return originDate.day() == 0 || originDate.day() == 6
 })
 
+// 日付計算用関数
 const calculationDate = (standardSubtractStart: number) => {
+    if (!inputDate.value) return null
     const originDate = dayjs(inputDate.value)
-    if (originDate.day() == 0) {
+    if (originDate.day() === 0) {
+        // 日曜日
         return originDate.subtract(standardSubtractStart, 'day').format('M/D(ddd)')
-    } else if (originDate.day() == 6) {
+    } else if (originDate.day() === 6) {
+        // 土曜日
         return originDate.subtract(standardSubtractStart - 1, 'day').format('M/D(ddd)')
     }
 }
@@ -38,6 +62,11 @@ const generalSaleResultEnd = computed(() => calculationDate(7))
 
 // 残席先着販売
 const remainingSeatSaleStart = computed(() => calculationDate(6))
+
+// DOMにカレンダーを適用
+onMounted(() => {
+    flatpickr('#calendar', flatpickrOptions)
+})
 </script>
 
 <template>
@@ -46,7 +75,7 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
     </div>
 
     <div>
-        <input class="input-date" style="text-align: center" type="date" v-model="inputDate" />
+        <input id="calendar" class="input-date" placeholder="日付を選択してください" />
     </div>
     <div v-if="isEnable" class="date-section">
         <!-- JRAカード先行販売 -->
@@ -55,13 +84,13 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
             <div class="date-info">
                 <p class="date-info-title">申込期間</p>
                 <p class="date-info-time">
-                    {{ preSaleEntryStart + ' 18:00 〜 ' + preSaleEntryEnd + ' 13:00' }}
+                    {{ preSaleEntryStart }} 18:00 〜 {{ preSaleEntryEnd }} 13:00
                 </p>
             </div>
             <div class="date-info">
                 <p class="date-info-title">当選確認・購入期間</p>
                 <p class="date-info-time">
-                    {{ preSaleResultStart + ' 18:00 〜 ' + preSaleResultEnd + ' 13:00' }}
+                    {{ preSaleResultStart }} 18:00 〜 {{ preSaleResultEnd }} 13:00
                 </p>
             </div>
         </div>
@@ -71,13 +100,13 @@ const remainingSeatSaleStart = computed(() => calculationDate(6))
             <div class="date-info">
                 <p class="date-info-title">申込期間</p>
                 <p class="date-info-time">
-                    {{ generalSaleEntryStart + ' 18:00 〜 ' + generalSaleEntryEnd + ' 13:00' }}
+                    {{ generalSaleEntryStart }} 18:00 〜 {{ generalSaleEntryEnd }} 13:00
                 </p>
             </div>
             <div class="date-info">
                 <p class="date-info-title">当選確認・購入期間</p>
                 <p class="date-info-time">
-                    {{ generalSaleResultStart + ' 18:00 〜 ' + generalSaleResultEnd + ' 13:00' }}
+                    {{ generalSaleResultStart }} 18:00 〜 {{ generalSaleResultEnd }} 13:00
                 </p>
             </div>
         </div>
