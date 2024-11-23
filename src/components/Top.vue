@@ -73,7 +73,7 @@ interface Period {
 }
 
 interface SalePeriod {
-    title: string
+    sectionTitle: string
     periods: {
         [key: string]: Period
     }
@@ -81,7 +81,7 @@ interface SalePeriod {
 
 const salePeriods: ComputedRef<Record<string, SalePeriod>> = computed(() => ({
     preSale: {
-        title: 'JRAカード先行',
+        sectionTitle: 'JRAカード先行',
         periods: {
             entry: {
                 startDate: calculationDate(16),
@@ -100,7 +100,7 @@ const salePeriods: ComputedRef<Record<string, SalePeriod>> = computed(() => ({
         }
     },
     generalSale: {
-        title: '一般抽選',
+        sectionTitle: '一般抽選',
         periods: {
             entry: {
                 startDate: calculationDate(12),
@@ -119,7 +119,7 @@ const salePeriods: ComputedRef<Record<string, SalePeriod>> = computed(() => ({
         }
     },
     remainingSeat: {
-        title: '残席先着',
+        sectionTitle: '残席先着',
         periods: {
             sale: {
                 startDate: calculationDate(6),
@@ -132,13 +132,17 @@ const salePeriods: ComputedRef<Record<string, SalePeriod>> = computed(() => ({
     }
 }))
 
-// 残席先着販売
-const remainingSeatSaleStart = computed(() => calculationDate(6))
+// Googleカレンダーにイベントを追加
+const addToCalendar = (sectionTitle: String, period: Period) => {
+    const title = `JRA ${sectionTitle} ${period.title}`
+    const start =
+        period.startDate?.format('YYYYMMDD') + 'T' + period.startTime.replace(':', '') + '00'
+    const end = period.endDate?.format('YYYYMMDD') + 'T' + period.endTime.replace(':', '') + '00'
+    const url = 'https://jra-tickets.jp/'
 
-// FlatpickrをVueライフサイクルに適用
-onMounted(() => {
-    initializeFlatpickr()
-})
+    const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${url}`
+    window.open(googleCalendarUrl, '_blank')
+}
 </script>
 
 <template>
@@ -151,9 +155,17 @@ onMounted(() => {
     </div>
     <div v-if="isEnable" class="data-section">
         <div v-for="(sale, key) in salePeriods" :key="key" class="date-group">
-            <p class="date-group-title">{{ sale.title }}</p>
+            <p class="date-group-title">{{ sale.sectionTitle }}</p>
             <div v-for="(period, key) in sale.periods" :key="key" class="date-info">
-                <p class="date-info-title">{{ period.title }}</p>
+                <div class="date-info-row">
+                    <p class="date-info-title">{{ period.title }}</p>
+                    <img
+                        class="calendar-icon"
+                        src="@/assets/calender.svg"
+                        alt="カレンダーに追加"
+                        @click="addToCalendar(sale.sectionTitle, period)"
+                    />
+                </div>
                 <p class="date-info-time">
                     {{ period.startDate?.format('M/D(ddd)') }} {{ period.startTime }}
                     〜
@@ -211,9 +223,31 @@ onMounted(() => {
     border-radius: 8px;
 }
 
-/* Date info title style */
+.date-info-row {
+    @apply mb-1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
 .date-info-title {
-    @apply text-base font-semibold mb-1 text-gray-800;
+    @apply text-base font-semibold text-gray-800;
+    text-align: center;
+}
+
+/* カレンダーアイコンのスタイル */
+.calendar-icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-icon:hover {
+    transform: scale(1.1);
 }
 
 /* Date info time style */
