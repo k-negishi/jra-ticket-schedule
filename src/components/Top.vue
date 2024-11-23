@@ -140,7 +140,7 @@ onMounted(() => {
 
 <style scoped>
 .input-date {
-    @apply block w-64 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-400 transition duration-300 mb-4;
+    @apply block w-72 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-400 transition duration-300 mb-4;
     margin: 0 auto 16px;
     text-align: center;
 }
@@ -198,7 +198,7 @@ onMounted(() => {
 /* レスポンシブスタイル */
 @media (max-width: 1100px) {
     .section-title {
-        @apply text-lg mb-2;
+        @apply text-lg mb-1;
     }
 
     .input-date {
