@@ -151,7 +151,12 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     </div>
 
     <div>
-        <input id="calendar" class="select-date" placeholder="日付を選択してください" />
+        <input
+            id="calendar"
+            class="select-date"
+            autocomplete="off"
+            placeholder="日付を選択してください"
+        />
     </div>
     <div v-if="isEnable" class="data-section">
         <div v-for="(sale, key) in salePeriods" :key="key" class="date-group">
