@@ -13,7 +13,7 @@ dayjs.locale(ja)
 Japanese.firstDayOfWeek = 1 // 月曜始まり
 
 // 日付を管理する変数
-const inputDate = ref<string | null>(null)
+const selectedDate = ref<string | null>(null)
 
 // Flatpickr カレンダー設定
 const flatpickrOptions = {
@@ -23,7 +23,7 @@ const flatpickrOptions = {
     weekNumbers: false,
     disableMobile: true,
     onChange: (selectedDates: Date[]) => {
-        inputDate.value = dayjs(selectedDates[0]).format('YYYY-MM-DD')
+        selectedDate.value = dayjs(selectedDates[0]).format('YYYY-MM-DD')
     }
 }
 
@@ -43,18 +43,18 @@ onMounted(() => {
 
 // 有効な日付か判定 (土曜または日曜)
 const isEnable = computed(() => {
-    if (inputDate.value == null) {
+    if (selectedDate.value == null) {
         return false
     }
-    const originDate = dayjs(inputDate.value)
+    const originDate = dayjs(selectedDate.value)
     return originDate.day() == 0 || originDate.day() == 6
 })
 
 // 日付計算用関数
 const calculationDate = (standardSubtractStart: number): Dayjs | undefined => {
-    if (inputDate.value == null) return undefined
+    if (selectedDate.value == null) return undefined
 
-    const originDate = dayjs(inputDate.value)
+    const originDate = dayjs(selectedDate.value)
     if (originDate.day() === 0) {
         // 日曜日
         return originDate.subtract(standardSubtractStart, 'day')
@@ -124,7 +124,7 @@ const salePeriods: ComputedRef<Record<string, SalePeriod>> = computed(() => ({
             sale: {
                 startDate: calculationDate(6),
                 startTime: '18:00',
-                endDate: dayjs(inputDate.value),
+                endDate: dayjs(selectedDate.value),
                 endTime: '15:00',
                 title: '販売期間'
             }
