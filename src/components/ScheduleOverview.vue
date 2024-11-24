@@ -151,7 +151,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     </div>
 
     <div>
-        <input id="calendar" class="input-date" placeholder="日付を選択してください" />
+        <input id="calendar" class="select-date" placeholder="日付を選択してください" />
     </div>
     <div v-if="isEnable" class="data-section">
         <div v-for="(sale, key) in salePeriods" :key="key" class="date-group">
@@ -183,7 +183,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 </template>
 
 <style scoped>
-.input-date {
+.select-date {
     @apply block w-72 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-400 transition duration-300 mb-4;
     margin: 0 auto 16px;
     text-align: center;
@@ -267,7 +267,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
         @apply text-lg mb-1;
     }
 
-    .input-date {
+    .select-date {
         @apply mb-3 py-1 text-sm;
     }
 
