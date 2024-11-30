@@ -166,15 +166,12 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
                     <p class="date-info-title">{{ period.title }}</p>
                     <button
                         type="button"
-                        class="add-calendar-button"
+                        class="add-calendar-button group relative"
                         @click="addToCalendar(sale.sectionTitle, period)"
                     >
-                        <img
-                            class="calendar-icon"
-                            src="@/assets/calender.svg"
-                            alt="カレンダーに追加"
-                        />
+                        <img class="calendar-icon" src="@/assets/calender.svg" />
                         登録
+                        <span class="tooltip">Googleカレンダーに登録</span>
                     </button>
                 </div>
                 <p class="date-info-time">
@@ -258,13 +255,21 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     @apply text-gray-700 text-sm;
 }
 
+.tooltip {
+    @apply absolute bottom-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded-md whitespace-nowrap opacity-0 invisible transition-opacity duration-200 z-10;
+}
+
+.add-calendar-button:hover .tooltip {
+    @apply opacity-100 visible;
+}
+
 /* Error message style */
 .error-message {
     @apply text-red-600 text-sm font-semibold;
 }
 
 /* レスポンシブスタイル */
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
     .section-title {
         @apply text-lg mb-1;
     }
