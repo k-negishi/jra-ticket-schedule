@@ -242,7 +242,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 }
 
 .tooltip {
-    @apply absolute bottom-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded-md whitespace-nowrap opacity-0 invisible transition-opacity duration-200 z-10 group-hover:opacity-100 group-hover:visible;
+    @apply absolute bottom-7 left-1/2 transform -translate-x-1 bg-black text-white text-xs px-2 py-1 rounded-md whitespace-nowrap invisible transition-opacity group-hover:opacity-100 group-hover:visible;
 }
 
 .error-message {
