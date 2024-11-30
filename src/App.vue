@@ -50,7 +50,7 @@ header p {
 }
 
 .github-link {
-    @apply flex items-center gap-2 text-gray-800 font-semibold hover:text-gray-400 m-10;
+    @apply flex items-center gap-2 text-gray-800 font-semibold hover:text-gray-400 m-8;
     text-decoration: none;
     align-items: center;
     justify-content: center;
