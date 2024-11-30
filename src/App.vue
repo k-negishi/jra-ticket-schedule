@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Top from './components/ScheduleOverview.vue'
+import ScheduleOverview from './components/ScheduleOverview.vue'
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import Top from './components/ScheduleOverview.vue'
         </header>
         <div class="container">
             <main>
-                <Top />
+                <ScheduleOverview />
             </main>
         </div>
         <div>
