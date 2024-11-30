@@ -263,7 +263,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     }
 
     .date-group {
-        @apply w-full px-3 py-2;
+        @apply w-full px-3 py-2 my-0.5;
     }
 
     .date-group-title {
