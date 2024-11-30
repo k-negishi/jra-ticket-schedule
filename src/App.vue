@@ -68,7 +68,7 @@ header p {
 }
 
 /* レスポンシブスタイル */
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
     header {
         @apply px-3 py-1;
     }

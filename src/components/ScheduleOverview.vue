@@ -214,8 +214,8 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 
 /* Date group style */
 .date-group {
-    @apply w-full bg-blue-50 border border-blue-200 px-3 py-3 mx-1.5;
-    max-width: 305px;
+    @apply w-full bg-blue-50 border border-blue-200 px-4 py-4 my-2 mx-4;
+    max-width: 340px;
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -240,7 +240,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 }
 
 .add-calendar-button {
-    @apply absolute right-0 flex items-center justify-center px-1 py-0.5 text-blue-600 border border-blue-400 rounded font-medium text-xs h-5 transition-colors;
+    @apply absolute right-0 flex items-center justify-center px-1.5 py-0.5 text-blue-600 border border-blue-400 rounded font-medium text-sm h-6 transition-colors;
 }
 
 .add-calendar-button:hover {
