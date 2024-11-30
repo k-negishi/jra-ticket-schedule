@@ -196,7 +196,6 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     text-align: center;
 }
 
-/* Section title style */
 .section-title {
     @apply text-xl font-bold mb-4 text-center text-blue-600;
 }
@@ -205,30 +204,21 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     @apply py-1 font-bold text-blue-500;
 }
 
-/* Date section style */
 .data-section {
-    @apply flex-wrap justify-center;
-    display: flex;
-    gap: 8px;
+    @apply flex flex-wrap justify-center gap-2;
 }
 
-/* Date group style */
 .date-group {
-    @apply w-full bg-blue-50 border border-blue-200 px-4 py-4 my-2 mx-4;
+    @apply w-full bg-blue-50 border border-blue-200 px-4 py-4 my-2 mx-4 rounded-lg shadow-md;
     max-width: 340px;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Date group title style */
 .date-group-title {
     @apply text-lg font-semibold mb-1 text-blue-700;
 }
 
-/* Date info style */
 .date-info {
-    @apply p-2 bg-white border border-blue-200 rounded shadow-md mb-3;
-    border-radius: 8px;
+    @apply p-2 bg-white border border-blue-200 rounded-md shadow-md mb-3;
 }
 
 .date-info-row {
@@ -240,11 +230,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 }
 
 .add-calendar-button {
-    @apply absolute right-0 flex items-center justify-center px-1.5 py-0.5 text-blue-600 border border-blue-400 rounded font-medium text-sm h-6 transition-colors;
-}
-
-.add-calendar-button:hover {
-    @apply bg-blue-50 text-blue-300;
+    @apply absolute right-0 flex items-center justify-center px-1.5 py-0.5 text-blue-600 border border-blue-400 rounded font-medium text-sm h-6 transition-colors hover:bg-blue-50 hover:text-blue-300;
 }
 
 .calendar-icon {
@@ -256,19 +242,13 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 }
 
 .tooltip {
-    @apply absolute bottom-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded-md whitespace-nowrap opacity-0 invisible transition-opacity duration-200 z-10;
+    @apply absolute bottom-full left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded-md whitespace-nowrap opacity-0 invisible transition-opacity duration-200 z-10 group-hover:opacity-100 group-hover:visible;
 }
 
-.add-calendar-button:hover .tooltip {
-    @apply opacity-100 visible;
-}
-
-/* Error message style */
 .error-message {
     @apply text-red-600 text-sm font-semibold;
 }
 
-/* レスポンシブスタイル */
 @media (max-width: 1280px) {
     .section-title {
         @apply text-lg mb-1;
@@ -279,7 +259,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     }
 
     .data-section {
-        @apply flex-col items-center gap-2.5;
+        @apply flex flex-col items-center gap-2.5;
     }
 
     .date-group {
@@ -309,6 +289,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     .date-info-time {
         @apply text-xs;
     }
+
     .tooltip {
         display: none;
     }
