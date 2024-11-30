@@ -309,5 +309,8 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     .date-info-time {
         @apply text-xs;
     }
+    .tooltip {
+        display: none;
+    }
 }
 </style>
