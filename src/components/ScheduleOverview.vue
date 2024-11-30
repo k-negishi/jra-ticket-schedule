@@ -164,13 +164,18 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
             <div v-for="(period, key) in sale.periods" :key="key" class="date-info">
                 <div class="date-info-row">
                     <p class="date-info-title">{{ period.title }}</p>
-                    <img
-                        class="calendar-icon"
-                        src="@/assets/calender.svg"
-                        alt="カレンダーに追加"
-                        title="カレンダーに追加"
+                    <button
+                        type="button"
+                        class="add-calendar-button"
                         @click="addToCalendar(sale.sectionTitle, period)"
-                    />
+                    >
+                        <img
+                            class="calendar-icon"
+                            src="@/assets/calender.svg"
+                            alt="カレンダーに追加"
+                        />
+                        登録
+                    </button>
                 </div>
                 <p class="date-info-time">
                     {{ period.startDate?.format('M/D(ddd)') }} {{ period.startTime }}
@@ -212,9 +217,9 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 
 /* Date group style */
 .date-group {
-    @apply w-full bg-blue-50 border border-blue-200 px-3.5 py-3 mx-1.5;
-    max-width: 300px;
-    border-radius: 8px;
+    @apply w-full bg-blue-50 border border-blue-200 px-3 py-3 mx-1.5;
+    max-width: 305px;
+    border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -230,33 +235,25 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 }
 
 .date-info-row {
-    @apply mb-1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    @apply flex items-center relative gap-2 mb-2;
 }
 
 .date-info-title {
-    @apply text-base font-semibold text-gray-800;
-    text-align: center;
+    @apply text-base font-semibold text-gray-800 text-center w-full;
 }
 
-/* カレンダーアイコンのスタイル */
+.add-calendar-button {
+    @apply absolute right-0 flex items-center justify-center px-1 py-0.5 text-blue-600 border border-blue-400 rounded font-medium text-xs h-5 transition-colors;
+}
+
+.add-calendar-button:hover {
+    @apply bg-blue-50 text-blue-300;
+}
+
 .calendar-icon {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    margin-left: 8px;
-    transition: transform 0.2s ease;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    @apply w-3 h-3 mr-1;
 }
 
-.calendar-icon:hover {
-    transform: scale(1.5);
-}
-
-/* Date info time style */
 .date-info-time {
     @apply text-gray-700 text-sm;
 }
@@ -286,6 +283,14 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 
     .date-group-title {
         @apply text-base;
+    }
+
+    .add-calendar-button {
+        @apply px-1 py-0.5 text-xs h-5;
+    }
+
+    .calendar-icon {
+        @apply w-3 h-3 mr-1;
     }
 
     .date-info {
