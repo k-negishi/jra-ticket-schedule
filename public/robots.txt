@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jra-ticket-schedule.s3.ap-northeast-1.amazonaws.com/sitemap.xml

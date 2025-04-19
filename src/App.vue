@@ -6,26 +6,29 @@ import ScheduleOverview from './components/ScheduleOverview.vue'
     <div class="app">
         <header class="bg-gray-400 flex p-4">
             <div class="text-white ml-5">
-                <p class="text-3xl font-semibold">JRA指定席</p>
-                <p class="text-3xl font-semibold">ネット予約スケジュール</p>
+                <h1 class="text-xl font-semibold">
+                    <span class="block">JRA指定席</span>
+                    <span class="block">ネット予約スケジュール</span>
+                </h1>
             </div>
         </header>
         <div class="container">
-            <main>
+            <main aria-label="予約スケジュール計算ツール">
                 <ScheduleOverview />
             </main>
         </div>
-        <div>
+        <footer>
             <a
                 href="https://github.com/k-negishi/jra-ticket-schedule"
                 class="github-link"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="GitHubでソースコードを見る"
             >
                 <img src="@/assets/github-icon.svg" alt="GitHub" class="github-icon" />
                 GitHubで見る
             </a>
-        </div>
+        </footer>
     </div>
 </template>
 
@@ -40,13 +43,17 @@ header {
     @apply flex items-center px-4 py-2 bg-blue-200 shadow-sm;
 }
 
-header p {
-    @apply text-gray-800 text-lg font-semibold;
+header h1 {
+    @apply text-gray-800 font-semibold;
 }
 
 .container {
     @apply px-6 py-8 text-center bg-gray-50 max-w-7xl mx-auto;
     margin-top: 0;
+}
+
+footer {
+    @apply flex justify-center items-center;
 }
 
 .github-link {
@@ -77,7 +84,7 @@ header p {
         @apply px-4 py-1.5;
     }
 
-    header p {
+    header h1 {
         @apply text-sm;
     }
 }

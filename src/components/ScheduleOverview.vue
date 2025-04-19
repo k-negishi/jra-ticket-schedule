@@ -146,47 +146,62 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 </script>
 
 <template>
-    <div class="section-title">
-        <p class="title-line">競馬開催日</p>
-    </div>
+    <section aria-labelledby="schedule-section-title">
+        <h2 id="schedule-section-title" class="section-title">競馬開催日</h2>
 
-    <div>
-        <input
-            id="calendar"
-            class="select-date"
-            autocomplete="off"
-            placeholder="日付を選択してください"
-        />
-    </div>
-    <div v-if="isEnable" class="data-section">
-        <div v-for="(sale, key) in salePeriods" :key="key" class="date-group">
-            <p class="date-group-title">{{ sale.sectionTitle }}</p>
-            <div v-for="(period, key) in sale.periods" :key="key" class="date-info">
-                <div class="date-info-row">
-                    <p class="date-info-title">{{ period.title }}</p>
-                    <button
-                        type="button"
-                        class="add-calendar-button group relative"
-                        @click="addToCalendar(sale.sectionTitle, period)"
-                    >
-                        <img class="calendar-icon" src="@/assets/calender.svg" />
-                        登録
-                        <span class="tooltip">Googleカレンダーに登録</span>
-                    </button>
-                </div>
-                <p class="date-info-time">
-                    {{ period.startDate?.format('M/D(ddd)') }} {{ period.startTime }}
-                    〜
-                    {{ period.endDate?.format('M/D(ddd)') }} {{ period.endTime }}
-                </p>
-            </div>
+        <div class="calendar-container">
+            <label for="calendar" class="sr-only">日付を選択</label>
+            <input
+                id="calendar"
+                class="select-date"
+                autocomplete="off"
+                placeholder="日付を選択してください"
+                aria-describedby="date-instructions"
+            />
+            <span id="date-instructions" class="sr-only">土曜日または日曜日を選択してください</span>
         </div>
-    </div>
-    <div v-else>
-        <p class="error-message">
-            土曜・日曜を選択してください<br />金杯・ホープフルS等は未対応です
-        </p>
-    </div>
+
+        <div v-if="isEnable" class="data-section">
+            <section v-for="(sale, key) in salePeriods" :key="key" class="date-group">
+                <h3 class="date-group-title">{{ sale.sectionTitle }}</h3>
+                <article v-for="(period, key) in sale.periods" :key="key" class="date-info">
+                    <div class="date-info-row">
+                        <h4 class="date-info-title">{{ period.title }}</h4>
+                        <button
+                            type="button"
+                            class="add-calendar-button group relative"
+                            @click="addToCalendar(sale.sectionTitle, period)"
+                            aria-label="Googleカレンダーに予定を登録する"
+                        >
+                            <img
+                                class="calendar-icon"
+                                src="@/assets/calender.svg"
+                                alt="カレンダーアイコン"
+                            />
+                            登録
+                            <span class="tooltip">Googleカレンダーに登録</span>
+                        </button>
+                    </div>
+                    <p class="date-info-time">
+                        <time
+                            datetime="{{ period.startDate?.format('YYYY-MM-DD') }}T{{ period.startTime }}"
+                            >{{ period.startDate?.format('M/D(ddd)') }} {{ period.startTime }}</time
+                        >
+                        〜
+                        <time
+                            datetime="{{ period.endDate?.format('YYYY-MM-DD') }}T{{ period.endTime }}"
+                            >{{ period.endDate?.format('M/D(ddd)') }} {{ period.endTime }}</time
+                        >
+                    </p>
+                </article>
+            </section>
+        </div>
+        <div v-else class="information-message">
+            <p class="error-message" role="alert">
+                土曜・日曜を選択してください<br />金杯・ホープフルS等は未対応です
+            </p>
+        </div>
+    </section>
 </template>
 
 <style scoped>
@@ -198,10 +213,16 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 
 .section-title {
     @apply text-xl font-bold mb-4 text-center text-blue-600;
+    margin-top: 0;
 }
 
-.title-line {
-    @apply py-1 font-bold text-blue-500;
+.sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+    clip: rect(0, 0, 0, 0);
+}
+
+.calendar-container {
+    @apply mb-4;
 }
 
 .data-section {
