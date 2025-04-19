@@ -6,7 +6,8 @@ JRA(日本中央競馬会)公式で掲載されている[指定席予約スケ�
 - Vue3
 - TypeScript
 - Tailwind CSS
-- Day.js
+- Flatpickr
+- Vite
 - etc...
 
 ## 公開URL
