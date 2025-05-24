@@ -134,7 +134,7 @@ const salePeriods: ComputedRef<Record<string, SalePeriod>> = computed(() => ({
 
 // Googleカレンダーにイベントを追加
 const addToCalendar = (sectionTitle: String, period: Period) => {
-    const title = `${sectionTitle} ${period.title}`
+    const title = `JRA ${sectionTitle} ${period.title}`
     const start =
         period.startDate?.format('YYYYMMDD') + 'T' + period.startTime.replace(':', '') + '00'
     const end = period.endDate?.format('YYYYMMDD') + 'T' + period.endTime.replace(':', '') + '00'
