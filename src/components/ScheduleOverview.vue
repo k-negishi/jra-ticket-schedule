@@ -173,7 +173,7 @@ const salePeriods: ComputedRef<Record<string, SalePeriod>> = computed(() => ({
 
 // Googleカレンダーにイベントを追加
 const addToCalendar = (sectionTitle: String, period: Period) => {
-    const title = `${sectionTitle} ${period.title}`
+    const title = `JRA ${sectionTitle} ${period.title}`
 
     // レース情報のテキストを作成
     let details = ''
