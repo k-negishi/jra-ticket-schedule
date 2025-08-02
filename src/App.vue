@@ -40,7 +40,7 @@ import ScheduleOverview from './components/ScheduleOverview.vue'
 
 /* Header style */
 header {
-    @apply flex items-center px-4 py-2 bg-blue-200 shadow-sm;
+    @apply flex items-center px-4 py-1 bg-blue-200 shadow-sm;
 }
 
 header h1 {
@@ -48,7 +48,7 @@ header h1 {
 }
 
 .container {
-    @apply px-6 py-8 text-center bg-gray-50 max-w-7xl mx-auto;
+    @apply px-6 py-2 text-center bg-gray-50 max-w-7xl mx-auto;
     margin-top: 0;
 }
 

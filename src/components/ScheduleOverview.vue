@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, onMounted, type ComputedRef } from 'vue'
+import { ref, computed, onMounted, watch, type ComputedRef } from 'vue'
 import dayjs, { Dayjs } from 'dayjs'
 import ja from 'dayjs/locale/ja'
 import flatpickr from 'flatpickr'
@@ -14,6 +14,31 @@ Japanese.firstDayOfWeek = 1 // 月曜始まり
 
 // 日付を管理する変数
 const selectedDate = ref<string | null>(null)
+
+interface RaceEvent {
+    race_name: string
+    location: string
+}
+const events = ref<RaceEvent[]>([])
+
+// 選択日付に応じて API から開催情報を取得
+const fetchEvents = async (dateString: string) => {
+    const d = dayjs(dateString)
+    const year = d.format('YYYY')
+    const month = d.format('M') // 0 埋めは不要
+    const day = d.format('D')
+    const url = `https://hrwqlokwkuzy4hoksjkzp3gb7y0anmkd.lambda-url.ap-northeast-1.on.aws/jra-calendar/events?year=${year}&month=${month}&day=${day}`
+
+    try {
+        const res = await fetch(url)
+        if (!res.ok) throw new Error('Network response was not ok')
+        const data = await res.json()
+        events.value = data.events ?? []
+    } catch (error) {
+        console.error(error)
+        events.value = []
+    }
+}
 
 // Flatpickr カレンダー設定
 const flatpickrOptions = {
@@ -48,6 +73,20 @@ const isEnable = computed(() => {
     }
     const originDate = dayjs(selectedDate.value)
     return originDate.day() == 0 || originDate.day() == 6
+})
+
+// 選択日が変わったら API 取得
+watch(selectedDate, (newDate) => {
+    if (newDate == null) {
+        events.value = []
+        return
+    }
+    const weekday = dayjs(newDate).day()
+    if (weekday === 0 || weekday === 6) {
+        fetchEvents(newDate)
+    } else {
+        events.value = []
+    }
 })
 
 // 日付計算用関数
@@ -134,13 +173,22 @@ const salePeriods: ComputedRef<Record<string, SalePeriod>> = computed(() => ({
 
 // Googleカレンダーにイベントを追加
 const addToCalendar = (sectionTitle: String, period: Period) => {
-    const title = `JRA ${sectionTitle} ${period.title}`
+    const title = `${sectionTitle} ${period.title}`
+
+    // レース情報のテキストを作成
+    let details = ''
+    if (events.value.length > 0) {
+        details = events.value.map((ev) => `${ev.race_name} - ${ev.location}`).join('\n')
+        details += '\n\n'
+    }
+    details += 'https://jra-tickets.jp/'
+
     const start =
         period.startDate?.format('YYYYMMDD') + 'T' + period.startTime.replace(':', '') + '00'
     const end = period.endDate?.format('YYYYMMDD') + 'T' + period.endTime.replace(':', '') + '00'
-    const url = 'https://jra-tickets.jp/'
 
-    const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${url}`
+    const encodedDetails = encodeURIComponent(details)
+    const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${encodedDetails}`
     window.open(googleCalendarUrl, '_blank')
 }
 </script>
@@ -159,6 +207,16 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
                 aria-describedby="date-instructions"
             />
             <span id="date-instructions" class="sr-only">土曜日または日曜日を選択してください</span>
+
+            <!-- 開催レースカード -->
+            <div v-if="events.length" class="event-card">
+                <div class="event-card-title">🏇 開催レース 🏇</div>
+                <div class="event-list">
+                    <div v-for="(ev, idx) in events" :key="idx" class="event-item">
+                        {{ ev.race_name }} — {{ ev.location }}
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div v-if="isEnable" class="data-section">
@@ -184,12 +242,14 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
                     </div>
                     <p class="date-info-time">
                         <time
-                            datetime="{{ period.startDate?.format('YYYY-MM-DD') }}T{{ period.startTime }}"
+                            :datetime="`${period.startDate?.format('YYYY-MM-DD')}T${
+                                period.startTime
+                            }`"
                             >{{ period.startDate?.format('M/D(ddd)') }} {{ period.startTime }}</time
                         >
                         〜
                         <time
-                            datetime="{{ period.endDate?.format('YYYY-MM-DD') }}T{{ period.endTime }}"
+                            :datetime="`${period.endDate?.format('YYYY-MM-DD')}T${period.endTime}`"
                             >{{ period.endDate?.format('M/D(ddd)') }} {{ period.endTime }}</time
                         >
                     </p>
@@ -222,7 +282,24 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
 }
 
 .calendar-container {
-    @apply mb-4;
+    @apply mb-1 flex flex-col items-center;
+}
+
+.event-card {
+    @apply w-full border px-4 py-0.5 my-1 mx-4 rounded-lg shadow-sm;
+    max-width: 340px;
+}
+
+.event-card-title {
+    @apply font-semibold text-base  mb-2 text-gray-800 text-center;
+}
+
+.event-list {
+    @apply space-y-1;
+}
+
+.event-item {
+    @apply text-sm text-gray-800;
 }
 
 .data-section {
@@ -276,31 +353,43 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     }
 
     .select-date {
-        @apply mb-3 py-1 text-sm;
+        @apply mb-2 py-1 text-sm;
+    }
+
+    .event-card {
+        @apply px-2 py-1 my-1 mx-2;
+    }
+
+    .event-card-title {
+        @apply text-sm mb-0.5;
+    }
+
+    .event-item {
+        @apply text-xs;
     }
 
     .data-section {
-        @apply flex flex-col items-center gap-2.5;
+        @apply flex flex-col items-center gap-1.5;
     }
 
     .date-group {
-        @apply w-full px-3 py-2 my-1;
+        @apply w-full px-2 py-1.5 my-0.5 mx-2;
     }
 
     .date-group-title {
-        @apply text-base;
+        @apply text-base mb-0.5;
     }
 
     .add-calendar-button {
-        @apply px-1 py-0.5 text-xs h-5;
+        @apply px-0.5 py-px text-xs h-4;
     }
 
     .calendar-icon {
-        @apply w-3 h-3 mr-1;
+        @apply w-2.5 h-2.5 mr-0.5;
     }
 
     .date-info {
-        @apply px-2 py-1.5 mb-1;
+        @apply px-1.5 py-1 mb-1;
     }
 
     .date-info-title {
@@ -308,7 +397,7 @@ const addToCalendar = (sectionTitle: String, period: Period) => {
     }
 
     .date-info-time {
-        @apply text-xs;
+        @apply text-xs leading-tight;
     }
 
     .tooltip {
