@@ -14,7 +14,7 @@ JRA(日本中央競馬会)公式で掲載されている[指定席予約スケ�
 https://jra-ticket-schedule.s3.ap-northeast-1.amazonaws.com/index.html
 
 ## 利用API
-以下のAWS Lambda(Python)によるAPIを利用しています。
+以下のAWS Lambda(Python)によるAPIを利用しています。  
 https://github.com/k-negishi/jra-ticket-schedule-api
 
 ## Project Setup
